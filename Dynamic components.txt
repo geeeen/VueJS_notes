@@ -1,0 +1,17 @@
+conponent - reserved word
+<component :is="'selectedComponent'">
+	<p>data for slot</p>
+</component>
+
+selectedComponent  OR   SelectedComponent   OR selected-component   - string with '' or dynamic value
+
+
+COMPONENT DESTROYED AND RECREATED WHEN SWITCHING BETWEEN OTHER
+
+<keep-alive>   
+	<component></component>
+</keep-alive>                       - DONES'T DESTROY COMPONENT
+
+	Lifecycle hooks for logging switching between components if they alive
+deactivated() {}
+activated() {}

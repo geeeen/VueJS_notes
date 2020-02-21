@@ -1,0 +1,31 @@
+Vue.use(Vuelidate)
+
+
+<template>
+	<input 
+		type="email" 
+		id="email"
+		@blur="$v.email.$touch()"
+		v-model="email" />
+	<div v-if="$v.email.$error"> ERROR </div>
+
+	we can validate by clicking data
+	<button @click="$v.email.$touch()" :disabled="$v.$invalid"></button>
+
+</template>
+
+
+import { required, email } from 'vuelidate/lib/validators'
+export default {
+	data() {
+		return {
+			email: ''
+		}
+	}
+	validations: {
+		email: {
+			required,
+			email
+		}
+	}
+}

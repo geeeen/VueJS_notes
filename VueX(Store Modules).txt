@@ -1,0 +1,71 @@
+modules/counter.js
+
+const state = {
+	counter: 0
+}
+const getters = {}
+const mutations = {}
+const actions = {}
+export default {
+	state,
+	getters,
+	mutations,
+	actions
+}
+
+store.js
+import counter from './modules/counter'
+export const store = new Vuex.Store({
+	store: {},
+	getters: {},
+	...
+	modules: {
+		counter
+	}
+});
+_________________________________________________________
+OR
+_________________________________________________________
+actions.js
+
+export const updateValue = () => {}
+
+mutations.js
+
+export export const updateValue = () => {}
+
+store.js
+import * as actions from './actions';
+import * as mutations from './mutations';
+
+	store: {},
+	getters: {},
+	mutations,
+	actions,
+	modules: {}
+
+_________________________________________________________
+OR
+_________________________________________________________
+
+types.js              						manage all names there
+export const DOUBLE_COUNTER = "counter/DOUBLE_COUNTER";
+
+import * as types from "../types";
+const getters = {
+	[types.DOUBLE_COUNTER]: state => {
+		return state.counter * 2;
+	}
+}
+
+
+file.vue
+import * as types from "../store/types";
+computed: {
+	...mapGetters({
+		doubleCounter: types.DOUBLE_COUNTER,
+		...
+	})
+}
+
+

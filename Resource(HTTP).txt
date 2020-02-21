@@ -1,0 +1,53 @@
+main.js
+import VueResource from 'vue-resource'
+
+Vue.use(VueResource);
+
+file.vue
+this.$http.get('url')            $http added by vueResource
+this.$http.post('url', data)
+	.then(response => { 
+		console.log(response)
+	}, error => { 
+		console.log(error) 
+	})
+
+this.$http.get('url')
+	.then(response => {
+		return response.json();
+	})
+	.then(data => console.log(data));
+
+______________________________________________
+Vue.http.options.root = "https://main-url/"  ALL request will be sent on it url
+
+Vue.http.interceptors.push((request, next) => {    APPLIES TO EACH REQUEST and RESPONSE
+	if (request.method == 'POST') {
+		request.method = "PUT";
+	}
+	next(response => {
+		response.json = () => { return {messages: response.body} }
+	});
+});
+_______________________________________________
+export default {
+	data() {
+		return {
+			user: {fn: "", ln: ""}
+			resource: {}
+		}
+	},
+	methods: {
+		submit() {
+			this.resource.save({}, this.user);   {} - url params;   URL == "dataurl"
+			OR
+			this.resource.saveAlt(this.user)			URL == "alternativeutl"
+		}
+	}
+	created() {
+		const customActions = {
+			saveAlt: {method: "POST", url: "alternativeurl"}
+		};
+		this.resource = this.$resource("dataurl", {}, customActions)
+	}
+}

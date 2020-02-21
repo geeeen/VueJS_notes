@@ -1,0 +1,4 @@
+vue init webpack-simple vue-cli
+	    |		   |
+	HAS OTHER	PROJECT
+	SETTINGS	NAME

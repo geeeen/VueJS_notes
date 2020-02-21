@@ -1,0 +1,59 @@
+<transition name="fade" type="animations|transition" appear mode="out-in">   set type if u mix this
+	<someelements v-if="show"></someelements>    v-show also animatable
+</transition>
+
+	appear - props for trigger animation onLoad page
+	name can be dynamicle :name="animationType"
+	mode (out-in, in-out) - animate one after another
+
+<transition 	appear
+		enter-class=""
+                enter-active-class=""
+                leave-class=""
+                leave-active-class=""
+                >...</<transition>                        we can set class manualy
+							animated - third party library
+
+FADE:
+  .fade-enter {
+    opacity: 0;
+  }
+  .fade-enter-active {
+    transition: opacity 1s;
+  }
+  .fade-leave {
+  }
+  .fade-leave-active {
+    transition: opacity 1s;
+    opacity: 0;
+  }
+
+SLIDE:
+  .slide-enter {
+  }
+  .slide-enter-active {
+    animation: slide-in 1s ease-out forwards;
+  }
+  .slide-leave {
+  }
+  .slide-leave-active {
+    animation: slide-out 1s ease-out forwards;
+  }
+
+  @keyframes slide-in {
+    from{
+      transform: translateY(20px);
+    }
+    to{
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-out {
+    from{
+      transform: translateY(0);
+    }
+    to{
+      transform: translateY(20px);
+    }
+  }

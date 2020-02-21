@@ -1,0 +1,52 @@
+store.js
+
+  mutations: {
+    increment: (state, payload) => {
+      state.counter++;
+    },
+    decrement: state => {
+      state.counter--;
+    }
+  },
+  actions: {
+    increment: ({ commit }) => {
+      commit("increment");
+    },
+    decrement: ({ commit }) => {
+      commit("decrement");
+    },
+    asyncIncrement: ({commit}, payload) => {
+      setTimeout(() => {
+        commit("increment", payload);
+      }, 1000)
+    },
+    asyncDecrement: ({ commit, dispatch }) => {
+      dispatch('increment');
+      setTimeout(() => {
+        commit("decrement");
+      }, 1000)
+    }
+  }
+
+import { mapActions } from "vuex";
+  methods: {
+    ...mapActions(['asyncIncrement', 'decrement']),
+    anotherMethods() {}
+  }
+}
+
+<template>  asyncIncrement(payload | object) </template>
+_________________________________________________________
+
+v-model="value"
+
+computed: {
+    value: {
+	get() {
+	    return this.$store.getters.value;              getters
+	},
+	set(value) {
+	    this.$store.dispatch('updateValue', value);    actions
+	}
+    }
+}

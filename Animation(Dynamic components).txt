@@ -1,0 +1,17 @@
+COMPONENT :IS
+<transition name="fade" mode="out-in">
+	<component :is="SelectedComponent"></component>
+</transition>
+
+
+TRANSITION_GROUP
+<ul>
+	<transition-group name="slide>
+		<li v-for="number in 5" :key="number">{{ number }}</li>
+	</transition-group>
+</ul>
+
+//class for any moving element
+.slide-move {
+	transition: transform 1s;
+}

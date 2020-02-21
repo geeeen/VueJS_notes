@@ -1,0 +1,46 @@
+	PARENT  -- > CHILD
+	__________________
+Pass data using props:
+	:propName="value or function"
+
+parent.vue
+	<h2 slot="soneName" @click.native="someFunc">data</h2>
+
+	for tracking events in parent, using @click.native
+child.vue
+	<slot><slot/> (styles using from child component) (name === "Default")
+	<slot name="someName">Default Data; Replaced by Parent data <slot/>
+
+	CHILD  -- >   PARENT
+	____________________
+Using custom events 
+	this.$emit("add:user", this.user)   --- child
+	@add:user = "function"	--- props at parent
+Using callback fn
+	:funcInProps = "someFunc"	---props at parent
+	this.someFunc(data)	---child
+
+	CHILD  --> CHILD
+	________________
+main.js create 
+	export const eventBus = new Vue(); (before Vue app)
+	OR
+	export const eventBus = new Vue({
+		methods: {
+			changeSomething(data) {
+				this.$emit('eventName', data);
+			}
+		}
+	})
+
+child.vue
+	import { eventBus } from '../main';
+
+	eventBus.$emit('eventName', payload);
+	OR
+	eventBus.changeSomething(data);
+child2.vue
+	import { eventBus } from '../main';
+	created() {
+	    eventBus.$on('eventName', (payload) => this.data = payload);
+	}

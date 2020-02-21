@@ -1,0 +1,30 @@
+<transition
+	@before-enter="beforeEnter"
+	@enter="enter"
+	@after-enter="afterEnter"
+	@enter-cancelled="enterCancelled"
+
+	@before-leave="veforeLeave"
+	@leave="leave"
+	@after-leave="afterLeave"
+	@leave-cancelled="leaveCancelled"
+	:css="false"
+	>
+	<div v-if="val"></div>
+</transition>	
+
+	:css="false"  telling vue don't look css classes
+
+export default {
+	methods: {
+		beforeEnter(el) {
+		},
+		enter(el, done) {
+			done();	//need call done to told vue that animation ended
+		}
+		...
+		leave(el, done) {
+			done();	
+		}
+	}
+}

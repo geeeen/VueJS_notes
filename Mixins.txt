@@ -1,0 +1,42 @@
+fruitMixin.js
+export const fruitMixin = {
+  data() {
+    return {
+      fruits: ["Apple", "Banana", "Mango", "Melon"],
+      filterText: ""
+    };
+  },
+  computed: {
+    filteredFruits() {
+      return this.fruits.filter(fruit => fruit.match(this.filterText));
+    }
+  }
+};
+
+file.vue
+<li v-for="fruit in filteredFruits">{{ fruit }}</li>
+
+export default {
+  mixins: [fruitMixin],
+  data() {
+	return { some other data }
+  }
+  ...
+}
+
+
+Vue MERGE mixins with current props;
+mixin first, component second (so component can override mixin behavior)
+
+GLOBAL MIXIN (adding to all instances of app, called first)
+main.js
+Vue.mixin({
+	created() {
+		console.log("sometext");
+	}
+});
+
+_____________________________________________
+
+mixins create different objects for every use
+_____________________________________________

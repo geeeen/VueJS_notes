@@ -1,0 +1,21 @@
+file.vue
+<div>{{ text | toUpperCase | toLowerCase }}</div>   LEFT --> TO --> RIGHT applies
+
+export default {
+	filters: {
+		tiUpperCase(value) {
+			return value.toUpperCase();
+		}
+}
+
+main.js
+Vue.filter("toLowerCase", function(value) {
+  return value.toLowerCase();
+});
+
+	________________________________________________________
+       |  							|
+       |   FILTERS has bad performance				|
+       |   because vue call them each time when rerender dom	|
+       |   COMPUTED props are preferred				|
+       |________________________________________________________|

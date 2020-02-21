@@ -1,0 +1,76 @@
+	ROUTER beforeEach
+_________________________
+const router = new VueRouter({
+  routes,
+  mode: "history" / "hash" 
+});
+router.beforeEach((to, from, next) => {
+  next();	
+});
+next(false)   -   false - stay at this page, "/someurl" - go to url, epmty - go next
+_____________________________________________________
+
+export const routes = [
+  { path: "", component: Home, name: 'home'  },
+  { path: "/user", component: User, children: [
+	{ path: "", component: UserStart, beforeEach((to, from, next) => console.log()) }, <<--------
+	{ path: ":id", component: UserDetail },
+	{ path: ":id/edit", component: UserEdit, name: 'userEdit'},
+  ]},
+  { path: '/redirect', redirect: "/user" },
+  { path: '*', redirect: "/" },
+  ...
+];
+______________________________________________________
+export default {
+	beforeRouteEnter(to, from, next) {
+		if(user.authenticated) {
+			next();
+		} else {
+			next(false);
+	}}}
+
+								no acces to component
+______________________________________________________
+								have access to component
+beforeRouterLeave(to, from, next) {
+	next();
+}
+______________________________________________________
+		LAZY LOADING
+______________________________________________________
+
+const User = respolve => {
+	require.ensure(['./components/User.vue'], () => {
+		resolve(require('./components/User.vue'));
+	}, 'user')
+}
+
+const UserDetails = respolve => {
+	require.ensure(['./components/UserDetails .vue'], () => {
+		resolve(require('./components/UserDetails .vue'));
+	}, 'user')
+}
+
+'user' combine files to one build file
+
+
+{
+    path: "/about",
+    name: "About",
+    component: () =>
+      import("../views/About.vue")
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+

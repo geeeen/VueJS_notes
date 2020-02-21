@@ -1,0 +1,29 @@
+v-model.lazy.trim.number="someValue"
+
+.trin   work's when we leave input (change)
+.trim   remove spaces
+.number   convert to number
+
+
+<textarea v-model="message"></textarea>
+style="white-space: pre"   to save line breaks
+
+	const sendMail = []
+<input type="checkbox" value="SendMail" v-model="sendMail" />
+<input type="checkbox" value="SendInfoMail" v-model="sendMail" />
+	after clicking one of them       
+	sendMail = ["SendMail"]
+
+
+	const gender = "Male"
+<input type="radio" value="Male" v-model="gender" />
+<input type="radio" value="Female" v-model="gender" />
+
+
+	const myOptions: ["One", "Two", "Three"]
+	const selectedOpt = "One"
+<select v-model="selectedOpt">
+	<option for="opt in myOptions">
+	   {{ opt }}
+	</option>
+</select>

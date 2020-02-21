@@ -1,0 +1,138 @@
+	SETTING UP
+	__________
+main.js
+
+import VueRouter from "vue-router";
+import { routes } from "./routes";
+
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+  routes,
+  mode: "history" / "hash" 
+//  (url with or not hash) for prod need configure
+//  server for return index.html on errors
+});
+
+new Vue({
+  el: "#app",
+  router,
+  render: h => h(App)
+});
+
+routes.js
+
+import User from "./components/User/User";
+import UserStart from "./components/User/UserStart";
+import UserDetail from "./components/User/UserDetail";
+import UserEdit from "./components/User/UserEdit";
+import Home from "./components/Home";
+
+export const routes = [
+  { path: "", component: Home, name: 'home'  },
+  { path: "/user", component: User, children: [
+	{ path: "", component: UserStart },
+	{ path: ":id", component: UserDetail },
+	{ path: ":id/edit", component: UserEdit, name: 'userEdit'},
+  ]},
+  { path: '/redirect', redirect: "/user" },
+  { path: '*', redirect: "/" },
+  ...
+];
+
+:id - dynamic param
+
+watch: {
+	'$route'(to, from) {
+		this.id = to.params.id;
+	}
+}
+
+<router-view></router-view>   at main page; at page with childrenS
+_____________________________________________
+
+	NAVIGATION
+	__________
+<router-link to="/">Home</router-link>
+<router-link to="/user">User</router-link>
+
+<router-link to="/" tag="li" active-class="active" exact>Home</router-link>
+<router-link to="/user" tag="li" active-class="active">User</router-link>
+	tag - you can chose elem;
+	active-class - class wich used when link equil current url (but not exact)
+	exact - link is completely equal
+
+<router-link
+ to="{ name: 'userEdit', params: { id: 5}, query={ locale: "en", q: 100 }}" 
+ tag="li" 
+ active-class="active">Edit</router-link>
+
+	params - matched with :id
+	query - parama after ?       ?a=51&b=25
+this.$router.params.id
+this.$router.query.local
+
+
+this.$router.push("/user") or ({name: "home"})
+
+		SCROLLING
+		_________
+
+<router-link
+ to="{ 
+	name: 'userEdit',
+	params: { id: 5},
+	query={ locale: "en", q: 100 },
+	hash: "#data"
+  }" 
+ tag="li" 
+ active-class="active">Edit</router-link>
+
+const router = new VueRouter({
+  routes,
+  mode: "history" / "hash" 
+  scrollBehavior(to, from, savedPosition) {
+	if (savedPosition) {
+		return savedPosition;
+	}
+	if (to.hash) {
+		return { selector: to.hash };
+	}
+	return {x: 0, y: 700}
+  }
+});
+
+_____________________________________________
+
+	ANIMATIONS
+	__________
+<transition>
+	<router-view></router-view>
+<transition>
+_____________________________________________
+
+	SPECIFIC CASE 
+	_____________
+file.vue
+<div>
+	<touret-view name="header-top"></router-view>
+	<router-view></router-view>
+	<router-view name="header-bottom></router-view>
+</div>
+
+routes.js
+export const routes = [
+  { path: "", name: 'home', components: {
+  	default: Home,
+	'header-top': Header
+  }},
+  { path: "/user", components: {
+		default: User,
+		"headet-bot": Header
+        }, children: [
+	{ path: "", component: UserStart },
+	{ path: ":id", component: UserDetail },
+	{ path: ":id/edit", component: UserEdit, name: 'userEdit'},
+  ]}
+  ...
+];
